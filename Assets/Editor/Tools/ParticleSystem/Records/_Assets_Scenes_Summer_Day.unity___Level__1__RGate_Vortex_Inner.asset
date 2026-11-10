@@ -1,0 +1,269 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0dec29c26122c46b9cb3bfc62dc648, type: 3}
+  m_Name: _Assets_Scenes_Summer_Day.unity___Level__1__RGate_Vortex_Inner
+  m_EditorClassIdentifier: 
+  status: 1
+  sourceAssetPath: Assets/Scenes/Summer_Day.unity
+  sourceObjectPath: /Level (1)/RGate/Vortex/Inner
+  legacyEmitterType: EllipsoidParticleEmitter
+  targetObjectPath: /Level (1)/RGate/Vortex/Inner/[PSV2] Inner
+  createdAt: 2026-11-10 06:01:34
+  unityVersion: 2017.4.40f1
+  legacyFields:
+  - field: m_ObjectHideFlags
+    value: 0
+  - field: m_PrefabParentObject
+    value: null
+  - field: m_PrefabParentObject.m_FileID
+    value: 0
+  - field: m_PrefabParentObject.m_PathID
+    value: 0
+  - field: m_PrefabInternal
+    value: null
+  - field: m_PrefabInternal.m_FileID
+    value: 0
+  - field: m_PrefabInternal.m_PathID
+    value: 0
+  - field: m_GameObject.m_FileID
+    value: 218342
+  - field: m_GameObject.m_PathID
+    value: 0
+  - field: Does Animate Color?
+    value: true
+  - field: colorAnimation[0]
+    value: Color(1, 1, 1, 0.0392156877)
+  - field: colorAnimation[0].rgba
+    value: 184549375
+  - field: colorAnimation[1]
+    value: Color(0.113725491, 0.403921574, 0.670588255, 0.7058824)
+  - field: colorAnimation[1].rgba
+    value: -1263835363
+  - field: colorAnimation[2]
+    value: Color(0.03529412, 0.109803922, 0.239215687, 1)
+  - field: colorAnimation[2].rgba
+    value: -12772343
+  - field: colorAnimation[3]
+    value: Color(0.0156862754, 0.0235294122, 0.156862751, 0.7058824)
+  - field: colorAnimation[3].rgba
+    value: -1272445436
+  - field: colorAnimation[4]
+    value: Color(0.003921569, 0.0117647061, 0.06666667, 0.0392156877)
+  - field: colorAnimation[4].rgba
+    value: 168887041
+  - field: worldRotationAxis
+    value: (0, 0, 0)
+  - field: worldRotationAxis.x
+    value: 0
+  - field: worldRotationAxis.y
+    value: 0
+  - field: worldRotationAxis.z
+    value: 0
+  - field: localRotationAxis
+    value: (0, 0, 0)
+  - field: localRotationAxis.x
+    value: 0
+  - field: localRotationAxis.y
+    value: 0
+  - field: localRotationAxis.z
+    value: 0
+  - field: sizeGrow
+    value: 50
+  - field: rndForce
+    value: (0, 0, 0)
+  - field: rndForce.x
+    value: 0
+  - field: rndForce.y
+    value: 0
+  - field: rndForce.z
+    value: 0
+  - field: force
+    value: (0, 0, 0)
+  - field: force.x
+    value: 0
+  - field: force.y
+    value: 0
+  - field: force.z
+    value: 0
+  - field: damping
+    value: 1
+  - field: stopSimulation
+    value: false
+  - field: autodestruct
+    value: false
+  - field: m_ObjectHideFlags
+    value: 0
+  - field: m_PrefabParentObject
+    value: null
+  - field: m_PrefabParentObject.m_FileID
+    value: 0
+  - field: m_PrefabParentObject.m_PathID
+    value: 0
+  - field: m_PrefabInternal
+    value: null
+  - field: m_PrefabInternal.m_FileID
+    value: 0
+  - field: m_PrefabInternal.m_PathID
+    value: 0
+  - field: m_GameObject.m_FileID
+    value: 218342
+  - field: m_GameObject.m_PathID
+    value: 0
+  - field: m_Enabled
+    value: true
+  - field: m_CastShadows
+    value: <Enum>
+  - field: m_ReceiveShadows
+    value: false
+  - field: m_DynamicOccludee
+    value: true
+  - field: m_MotionVectors
+    value: <Enum>
+  - field: m_LightProbeUsage
+    value: 1
+  - field: m_ReflectionProbeUsage
+    value: 1
+  - field: m_LightmapIndex
+    value: 65535
+  - field: m_LightmapIndexDynamic
+    value: 65535
+  - field: m_LightmapTilingOffset
+    value: <Vector4>
+  - field: m_LightmapTilingOffset.x
+    value: 1
+  - field: m_LightmapTilingOffset.y
+    value: 1
+  - field: m_LightmapTilingOffset.z
+    value: 0
+  - field: m_LightmapTilingOffset.w
+    value: 0
+  - field: m_LightmapTilingOffsetDynamic
+    value: <Vector4>
+  - field: m_LightmapTilingOffsetDynamic.x
+    value: 1
+  - field: m_LightmapTilingOffsetDynamic.y
+    value: 1
+  - field: m_LightmapTilingOffsetDynamic.z
+    value: 0
+  - field: m_LightmapTilingOffsetDynamic.w
+    value: 0
+  - field: m_Materials.Array.size
+    value: <ArraySize>
+  - field: m_Materials.Array.data[0]
+    value: sparkle (UnityEngine.Material)
+  - field: m_Materials.Array.data[0].m_FileID
+    value: 49678
+  - field: m_Materials.Array.data[0].m_PathID
+    value: 0
+  - field: m_StaticBatchInfo.firstSubMesh
+    value: 0
+  - field: m_StaticBatchInfo.subMeshCount
+    value: 0
+  - field: m_StaticBatchRoot
+    value: null
+  - field: m_StaticBatchRoot.m_FileID
+    value: 0
+  - field: m_StaticBatchRoot.m_PathID
+    value: 0
+  - field: m_ProbeAnchor
+    value: null
+  - field: m_ProbeAnchor.m_FileID
+    value: 0
+  - field: m_ProbeAnchor.m_PathID
+    value: 0
+  - field: m_LightProbeVolumeOverride
+    value: null
+  - field: m_LightProbeVolumeOverride.m_FileID
+    value: 0
+  - field: m_LightProbeVolumeOverride.m_PathID
+    value: 0
+  - field: m_ScaleInLightmap
+    value: 1
+  - field: m_PreserveUVs
+    value: false
+  - field: m_IgnoreNormalsForChartDetection
+    value: false
+  - field: m_ImportantGI
+    value: false
+  - field: m_StitchLightmapSeams
+    value: false
+  - field: m_SelectedEditorRenderState
+    value: 3
+  - field: m_MinimumChartSize
+    value: 4
+  - field: m_AutoUVMaxDistance
+    value: 0.5
+  - field: m_AutoUVMaxAngle
+    value: 89
+  - field: m_LightmapParameters
+    value: null
+  - field: m_LightmapParameters.m_FileID
+    value: 0
+  - field: m_LightmapParameters.m_PathID
+    value: 0
+  - field: m_SortingLayerID
+    value: 0
+  - field: m_SortingLayer
+    value: 0
+  - field: m_SortingOrder
+    value: 0
+  - field: m_CameraVelocityScale
+    value: 0
+  - field: m_StretchParticles
+    value: <Enum>
+  - field: m_LengthScale
+    value: 2
+  - field: m_VelocityScale
+    value: 0
+  - field: m_MaxParticleSize
+    value: 0.25
+  - field: UV Animation.x Tile
+    value: 1
+  - field: UV Animation.y Tile
+    value: 1
+  - field: UV Animation.cycles
+    value: 1
+  exactMappings:
+  - 'startSize  <- minSize/maxSize: 0.3..0.8'
+  - 'startLifetime <- minEnergy/maxEnergy: 1..4'
+  - startRotation <- rndRotation=False (0..360deg random when true)
+  - simulationSpace <- 'Simulate in Worldspace?'=False
+  - scalingMode=Shape (legacy did not scale particle size with transform scale)
+  - playOnAwake <- m_Emit=True
+  - 'rotationOverLifetime.z base + rnd: 0 +/- 1.8 deg/s (V1 dropped the base entirely)'
+  - shape disabled (ellipsoid=(0,0,0) legacy point emission)
+  - colorAnimation 5 keys -> ColorOverLifetime gradient (keys at 0/25/50/75/100%)
+  - 'damping=1: documented legacy semantics is NO damping (velocity held constant
+    until the particle dies). VOLT left constant - exact.'
+  - renderMode Billboard
+  - 'renderer copy: material/shadows/probes/sorting/cameraVelocityScale/lengthScale/velocityScale/maxParticleSize'
+  - 'NOTE: ''exact'' classifications are static-analysis only - every mapping still
+    requires visual verification in-engine.'
+  approximations:
+  - 'emission rate: legacy re-rolls min..max per emission event; Shuriken min/max
+    rate sampling interval differs - verify perceived grain at low rates (1..4/s)'
+  - legacy rndAngularVelocity range convention (0..rnd symmetric vs +/- rnd) and sign
+    direction are unverified - confirm spin direction against legacy playback.
+  - sizeGrow=50 compound model with lifetime spread 1..4 uses bounding min/max curves
+    per V1 approach [model 1] - VERIFY
+  unsupported:
+  - emitterVelocityScale=0.03 is documented as inert unless 'Simulate in Worldspace?'
+    is enabled; this system simulates local, so legacy applies no emitter-velocity
+    inheritance - nothing converted (V1 mapped it unconditionally and wrongly).
+  warnings:
+  - Legacy components were preserved (not modified, not disabled, not deleted). Delete
+    the [PSV2] child to revert.
+  - Runtime code that searches GetComponentsInChildren<ParticleSystem> under this
+    hierarchy will now also see the converted system.
+  - Runtime scripts that disable legacy ParticleRenderer (e.g. Arrow.cs) will NOT
+    hide the converted system until the cutover stage.
+  - 'NOTE: legacy runtime toggling of m_Emit after startup has no automatic Shuriken
+    equivalent; verify no script relies on it for [PSV2] Inner'
