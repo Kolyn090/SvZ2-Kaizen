@@ -8088,7 +8088,7 @@ LightmapSettings:
     m_Padding: 2
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 0
-    m_TextureCompression: 1
+    m_TextureCompression: 0
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
@@ -8111,7 +8111,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000000, guid: 831cf3efc2b0bdf4b922794ce7498ab8,
+  m_LightingDataAsset: {fileID: 112000002, guid: 831cf3efc2b0bdf4b922794ce7498ab8,
     type: 2}
   m_UseShadowmask: 0
 --- !u!196 &486
@@ -39005,11 +39005,13 @@ MonoBehaviour:
   heroSpawnPointLeft: {fileID: 200}
   heroSpawnPointRight: {fileID: 223}
   enemiesTargetLeft: {fileID: 17}
+  enemiesTargetRight: {fileID: 48}
+  enemyGateGroup: {fileID: 0}
+  enemyGatePositions: {fileID: 0}
   vortexLeft: {fileID: 1786420764793537, guid: 7bfac34ef983ba84bbc2e5cacf60ab13, type: 2}
   vortexRight: {fileID: 142}
   gateSparklesLeft: {fileID: 1722903437797423, guid: a4d5e05c053b4be438acb1300e11efa4,
     type: 2}
-  enemiesTargetRight: {fileID: 48}
   gameCamera: {fileID: 342}
   heroWalkLeftEdge: {fileID: 206}
   heroWalkRightEdge: {fileID: 210}

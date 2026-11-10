@@ -2,7 +2,7 @@ using Glu.Plugins.ASocial;
 
 public class MultiplayerOpponentListController : GluiSimpleCollectionController
 {
-	public new MultiplayerOpponentsData dataSource;
+	public MultiplayerOpponentsData opponentDataSource;
 
 	public string dataFilter;
 
@@ -24,7 +24,7 @@ public class MultiplayerOpponentListController : GluiSimpleCollectionController
 
 	public override void ReloadData(object arg)
 	{
-		dataSource.Get_GluiData(dataFilter, null, null, out mData);
+		opponentDataSource.Get_GluiData(dataFilter, null, null, out mData);
 	}
 
 	public override object GetDataAtIndex(int index)

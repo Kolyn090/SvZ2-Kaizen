@@ -8,7 +8,7 @@ PlayerSettings:
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 3
-  targetDevice: 2
+  targetDevice: 1
   useOnDemandResources: 0
   accelerometerFrequency: 0
   companyName: SvZ2 Kaizen
@@ -162,7 +162,7 @@ PlayerSettings:
     Android: com.decomprecomp.svz2
     Standalone: unity.Glu Mobile.SvZ Defense 2
     Tizen: 
-    iOS: 
+    iOS: com.kolyn090.svz2kaizen
     tvOS: 
   buildNumber:
     iOS: 
@@ -184,7 +184,7 @@ PlayerSettings:
     serializedVersion: 2
     m_Bits: 238
   iPhoneSdkVersion: 988
-  iOSTargetOSVersionString: 7.0
+  iOSTargetOSVersionString: 15.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 9.0
@@ -575,7 +575,7 @@ PlayerSettings:
   webGLCompressionFormat: 1
   scriptingDefineSymbols: {}
   platformArchitecture:
-    iOS: 0
+    iOS: 1
   scriptingBackend:
     Android: 0
     iOS: 1
