@@ -112,11 +112,6 @@ public class Arrow : Projectile
 		{
 			meshRenderer.enabled = true;
 		}
-		ParticleEmitter[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<ParticleEmitter>();
-		foreach (ParticleEmitter particleEmitter in componentsInChildren2)
-		{
-			particleEmitter.emit = true;
-		}
 		ParticleSystem[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<ParticleSystem>();
 		foreach (ParticleSystem particleSystem in componentsInChildren3)
 		{
@@ -152,11 +147,6 @@ public class Arrow : Projectile
 			foreach (MeshRenderer meshRenderer in componentsInChildren)
 			{
 				meshRenderer.enabled = false;
-			}
-			ParticleEmitter[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<ParticleEmitter>();
-			foreach (ParticleEmitter particleEmitter in componentsInChildren2)
-			{
-				particleEmitter.emit = false;
 			}
 			ParticleSystem[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<ParticleSystem>();
 			foreach (ParticleSystem particleSystem in componentsInChildren3)
@@ -325,15 +315,6 @@ public class Arrow : Projectile
 				}
 				mTargetRef.ptr.RecievedAttack(attackType, mDamage, shooter);
 				mTargetRef.ptr.controller.autoPaperdoll.AttachObjectToJoint(base.gameObject, "impact_target", false);
-				ParticleRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<ParticleRenderer>();
-				ParticleRenderer[] array = componentsInChildren;
-				foreach (ParticleRenderer particleRenderer in array)
-				{
-					if (particleRenderer != null)
-					{
-						particleRenderer.enabled = false;
-					}
-				}
 				DestroyArrowTimed(2.5f);
 			}
 			else
@@ -441,15 +422,6 @@ public class Arrow : Projectile
 			return;
 		}
 		mTargetRef.ptr.controller.autoPaperdoll.AttachObjectToJoint(base.gameObject, "impact_target", false);
-		ParticleRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<ParticleRenderer>();
-		ParticleRenderer[] array = componentsInChildren;
-		foreach (ParticleRenderer particleRenderer in array)
-		{
-			if (particleRenderer != null)
-			{
-				particleRenderer.enabled = false;
-			}
-		}
 		DestroyArrowTimed(2.5f);
 	}
 

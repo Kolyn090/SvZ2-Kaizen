@@ -6,8 +6,6 @@ public class EffectKiller : MonoBehaviour
 
 	private bool mHadEffects;
 
-	private ParticleEmitter[] mEmitters;
-
 	private ParticleSystem[] mParticleSystems;
 
 	private Vector3 mOriginalScale = Vector3.one;
@@ -25,21 +23,12 @@ public class EffectKiller : MonoBehaviour
 	private void Start()
 	{
 		mParticleSystems = GetComponentsInChildren<ParticleSystem>();
-		mEmitters = GetComponentsInChildren<ParticleEmitter>();
 		mHadChildren = base.transform.GetChildCount() > 0;
-		mHadEffects = mParticleSystems.Length > 0 || mEmitters.Length > 0;
+		mHadEffects = mParticleSystems.Length > 0;
 	}
 
 	public void Cleanup()
 	{
-		ParticleEmitter[] array = mEmitters;
-		foreach (ParticleEmitter particleEmitter in array)
-		{
-			if (!(particleEmitter == null))
-			{
-				particleEmitter.emit = false;
-			}
-		}
 		base.gameObject.transform.parent = null;
 		base.gameObject.transform.localScale = mOriginalScale;
 		if (effectPool != null)
@@ -54,14 +43,6 @@ public class EffectKiller : MonoBehaviour
 
 	private void StopEmitting()
 	{
-		ParticleEmitter[] array = mEmitters;
-		foreach (ParticleEmitter particleEmitter in array)
-		{
-			if (!(particleEmitter == null))
-			{
-				particleEmitter.emit = false;
-			}
-		}
 		ParticleSystem[] array2 = mParticleSystems;
 		foreach (ParticleSystem particleSystem in array2)
 		{
@@ -110,15 +91,12 @@ public class EffectKiller : MonoBehaviour
 			return;
 		}
 		bool flag2 = false;
-		if (mEmitters != null)
+		ParticleSystem[] array2 = mParticleSystems;
+		foreach (ParticleSystem particleSystem2 in array2)
 		{
-			ParticleEmitter[] array2 = mEmitters;
-			foreach (ParticleEmitter particleEmitter in array2)
+			if (!(particleSystem2 == null) && particleSystem2.particleCount > 0)
 			{
-				if (!(particleEmitter == null) && particleEmitter.particleCount > 0)
-				{
-					flag2 = true;
-				}
+				flag2 = true;
 			}
 		}
 		if (!flag2)
