@@ -80,6 +80,16 @@ public class InGameImpl : WeakGlobalMonoBehavior<InGameImpl>
 
 	private Leadership[] mLeadership = new Leadership[MaxPlayers];
 
+	/// <summary>
+	/// Set at the end of the Start() coroutine, after all gameplay managers
+	/// (including mLeadership) have been constructed. Update() must not touch
+	/// them before that: entering Play Mode directly into a level scene starts
+	/// Profile.Init from Awake, so ProfileData.Initialized can flip true a
+	/// frame BEFORE this Start() coroutine resumes (yield null resumes after
+	/// Update), which used to throw NRE at 'mLeadership[0].Update()'.
+	/// </summary>
+	private bool mGameStarted;
+
 	private Souls[] mSouls = new Souls[MaxPlayers];
 
 	private VillageArchers mVillageArchers;
@@ -418,6 +428,8 @@ public class InGameImpl : WeakGlobalMonoBehavior<InGameImpl>
 		Shader.WarmupAllShaders();
 		MemoryWarningHandler.Instance.unloadOnMemoryWarning = true;
 		AdjustEffectQuality();
+
+		mGameStarted = true;
 	}
 
 	private void InitializeHelpersAndAbilities()
@@ -975,7 +987,7 @@ public class InGameImpl : WeakGlobalMonoBehavior<InGameImpl>
 
 	private void Update()
 	{
-		if (!ProfileData.Initialized) return;
+		if (!ProfileData.Initialized || !mGameStarted) return;
 
 		if (gamePaused)
 		{
