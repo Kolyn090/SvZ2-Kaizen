@@ -54635,11 +54635,13 @@ MonoBehaviour:
   heroSpawnPointLeft: {fileID: 251}
   heroSpawnPointRight: {fileID: 239}
   enemiesTargetLeft: {fileID: 33}
+  enemiesTargetRight: {fileID: 32}
+  enemyGateGroup: {fileID: 0}
+  enemyGatePositions: {fileID: 0}
   vortexLeft: {fileID: 1786420764793537, guid: 7bfac34ef983ba84bbc2e5cacf60ab13, type: 2}
   vortexRight: {fileID: 191}
   gateSparklesLeft: {fileID: 1722903437797423, guid: a4d5e05c053b4be438acb1300e11efa4,
     type: 2}
-  enemiesTargetRight: {fileID: 32}
   gameCamera: {fileID: 428}
   heroWalkLeftEdge: {fileID: 271}
   heroWalkRightEdge: {fileID: 278}

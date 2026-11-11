@@ -151,18 +151,34 @@ public class BundleAssetInfo
 
 	public static byte[] ReadBundle(string path)
 	{
-		if (!Application.isMobilePlatform)
+		Debug.Log("[BundleDebug] Reading: " + path);
+
+		if (path.Contains("://"))
 		{
-			return File.ReadAllBytes(path);
+			throw new Exception(
+				"URL-based loading is not supported by this reader: " + path
+			);
 		}
-		using (WWW www = new WWW(path))
+
+		if (!File.Exists(path))
 		{
-			while (!www.isDone)
-			{
-				// I am not implementing a coroutine for this
-			}
-			return www.bytes;
+			Debug.LogError(
+				"[BundleDebug] File not found: " + path
+			);
+
+			throw new FileNotFoundException(
+				"Bundle file not found", path
+			);
 		}
+
+		byte[] data = File.ReadAllBytes(path);
+
+		Debug.Log(
+			"[BundleDebug] Successfully read " +
+			data.Length + " bytes from " + path
+		);
+
+		return data;
 	}
 
 	public void DeserializeBundleAssetInfo()

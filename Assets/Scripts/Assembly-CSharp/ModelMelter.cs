@@ -77,15 +77,6 @@ public class ModelMelter : MonoBehaviour
 
 	private void PostStartInitialize(bool ascToHeavens)
 	{
-		ParticleEmitter[] componentsInChildren = GetComponentsInChildren<ParticleEmitter>();
-		ParticleEmitter[] array = componentsInChildren;
-		foreach (ParticleEmitter particleEmitter in array)
-		{
-			if (particleEmitter != null)
-			{
-				particleEmitter.emit = false;
-			}
-		}
 		Animation[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Animation>();
 		Animation[] array2 = componentsInChildren2;
 		foreach (Animation animation in array2)
