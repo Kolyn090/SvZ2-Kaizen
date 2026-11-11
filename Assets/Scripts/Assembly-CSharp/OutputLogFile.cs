@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class OutputLogFile : SingletonSpawningMonoBehaviour<OutputLogFile>
 {
@@ -135,17 +136,19 @@ public class OutputLogFile : SingletonSpawningMonoBehaviour<OutputLogFile>
 			postForm.AddField("gameName", GeneralConfig.GameName);
 			postForm.AddField("deviceName", SystemInfo.deviceName);
 			postForm.AddBinaryData("contents", data, logFilePath, "text/plain");
-			WWW upload = new WWW(uploadURL, postForm);
-			yield return upload;
-			if (upload.error == null)
+			using (UnityWebRequest upload = UnityWebRequest.Post(uploadURL, postForm))
 			{
+				yield return upload.SendWebRequest();
+				if (upload.error == null)
+				{
+				}
+				string errorFile = PlayerPrefs.GetString("OUTPUTLOGFILE_ERROR_FILE");
+				if (logFilePath.Equals(errorFile))
+				{
+					PlayerPrefs.SetString("OUTPUTLOGFILE_ERROR_FILE", string.Empty);
+				}
+				uploadInProgress = string.Empty;
 			}
-			string errorFile = PlayerPrefs.GetString("OUTPUTLOGFILE_ERROR_FILE");
-			if (logFilePath.Equals(errorFile))
-			{
-				PlayerPrefs.SetString("OUTPUTLOGFILE_ERROR_FILE", string.Empty);
-			}
-			uploadInProgress = string.Empty;
 		}
 	}
 
