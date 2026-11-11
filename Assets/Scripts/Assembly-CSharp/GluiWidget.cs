@@ -764,7 +764,7 @@ public class GluiWidget : GluiBase, IInputHandler
 			BoxCollider boxCollider = ObjectUtils.ForceComponentExists_AndDestroyOthers<BoxCollider, Collider>(base.gameObject);
 			boxCollider.isTrigger = true;
 			boxCollider.center = Vector3.zero;
-			boxCollider.extents = new Vector3(Size.x, Size.y, 1f) / 2f;
+			boxCollider.size = new Vector3(Size.x, Size.y, 1f) / 2f;
 			break;
 		}
 		case ColliderType.Auto_Sphere:
