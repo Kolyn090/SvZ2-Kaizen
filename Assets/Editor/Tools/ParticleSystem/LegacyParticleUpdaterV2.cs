@@ -1,3 +1,4 @@
+#if !UNITY_2018_1_OR_NEWER
 /*
  * Legacy Particle Updater V2
  *
@@ -2228,3 +2229,4 @@ public static class LegacyParticleUpdaterV2
 #endif
 
 #pragma warning restore 618
+#endif

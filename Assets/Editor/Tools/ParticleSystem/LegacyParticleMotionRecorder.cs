@@ -1,3 +1,4 @@
+#if !UNITY_2018_1_OR_NEWER
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -580,3 +581,4 @@ public class LegacyParticleMotionRecorder : EditorWindow
 		return path;
 	}
 }
+#endif

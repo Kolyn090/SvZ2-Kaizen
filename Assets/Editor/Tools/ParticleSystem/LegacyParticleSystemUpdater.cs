@@ -1,3 +1,4 @@
+#if !UNITY_2018_1_OR_NEWER
 /*
  * Legacy Particle System Updater
  * A tool that can be used to convert Legacy Particle Systems into new Particle System Components.
@@ -604,3 +605,4 @@ public class LegacyParticleUpdater : ScriptableWizard
 #endif
 
 #pragma warning restore 618
+#endif

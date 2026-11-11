@@ -1,3 +1,4 @@
+#if !UNITY_2018_1_OR_NEWER
 
 using UnityEngine;
 using UnityEditor;
@@ -45,3 +46,4 @@ public static class CheckLegacyParticles
         );
     }
 }
+#endif

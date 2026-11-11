@@ -1,3 +1,4 @@
+#if !UNITY_2018_1_OR_NEWER
 
 using System.Collections.Generic;
 using System.Text;
@@ -153,3 +154,4 @@ public static class CheckLegacyParticlesAll
         return count;
     }
 }
+#endif
