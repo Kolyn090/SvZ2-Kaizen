@@ -857,7 +857,6 @@ GameObject:
   - component: {fileID: 342}
   - component: {fileID: 343}
   - component: {fileID: 341}
-  - component: {fileID: 277}
   - component: {fileID: 385}
   m_Layer: 8
   m_Name: GLUICamera
@@ -4049,13 +4048,6 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 44}
-  m_Enabled: 1
---- !u!92 &277
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 80}
   m_Enabled: 1
 --- !u!104 &278
 RenderSettings:
