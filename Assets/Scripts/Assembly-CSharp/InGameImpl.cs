@@ -425,7 +425,9 @@ public class InGameImpl : WeakGlobalMonoBehavior<InGameImpl>
 
 		Singleton<PlayerWaveEventData>.Instance.StartWave();
 
+		#if !UNITY_2022_3_OR_NEWER
 		Shader.WarmupAllShaders();
+		#endif
 		MemoryWarningHandler.Instance.unloadOnMemoryWarning = true;
 		AdjustEffectQuality();
 
