@@ -94,7 +94,7 @@ public class GluiSlider : GluiSprite
 		BoxCollider component = GetComponent<BoxCollider>();
 		float num = ApplicationUtilities.DeviceXSize();
 		screenX = (screenX / (float)Screen.width - 0.5f) * num;
-		float num2 = screenX - (base.transform.position.x + component.extents.x);
+		float num2 = screenX - (base.transform.position.x + component.size.x);
 		float num3 = num2 / component.size.x + 1f;
 		if (numSteps > 1)
 		{
@@ -110,7 +110,7 @@ public class GluiSlider : GluiSprite
 		if (cursorSprite != null)
 		{
 			BoxCollider component = GetComponent<BoxCollider>();
-			float num = Mathf.Lerp(0f - component.extents.x, component.extents.x, Value);
+			float num = Mathf.Lerp(0f - component.size.x, component.size.x, Value);
 			cursorSprite.transform.position = new Vector3(base.transform.position.x + num, cursorSprite.transform.position.y, cursorSprite.transform.position.z);
 		}
 		if (previewWindow != null)
@@ -126,7 +126,7 @@ public class GluiSlider : GluiSprite
 		{
 			float num = Mathf.Abs(component.size.x);
 			float num2 = num * percent;
-			float screenX = 0f - component.extents.x + num2;
+			float screenX = 0f - component.size.x + num2;
 			return CalculateValue(screenX);
 		}
 		return 0f;

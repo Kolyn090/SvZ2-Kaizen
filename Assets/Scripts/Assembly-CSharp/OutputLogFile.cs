@@ -2,10 +2,18 @@ using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class OutputLogFile : SingletonSpawningMonoBehaviour<OutputLogFile>
 {
 	private const string kErrorFileKey = "OUTPUTLOGFILE_ERROR_FILE";
+
+	// Disabled by default: the legacy Glu upload endpoint is obsolete and rejected
+	// by Unity's insecure-HTTP policy. Existing scene/prefab serialization does not
+	// contain this field (the component is not serialized in any asset), so it can
+	// only be enabled deliberately in the Inspector or in code.
+	[SerializeField]
+	private bool enableRemoteLogUploads = false;
 
 	public string uploadURL = "http://kw-macmini650.glu.com:8888/log_file_grab/grab.php";
 
@@ -128,6 +136,12 @@ public class OutputLogFile : SingletonSpawningMonoBehaviour<OutputLogFile>
 
 	private IEnumerator UploadLog(string logFilePath, byte[] data)
 	{
+		if (!enableRemoteLogUploads)
+		{
+			// Remote uploads disabled: no request, no uploadInProgress state, and the
+			// pending-upload PlayerPrefs record is intentionally left untouched.
+			yield break;
+		}
 		if (!logFilePath.Equals(uploadInProgress))
 		{
 			uploadInProgress = logFilePath;
@@ -135,17 +149,19 @@ public class OutputLogFile : SingletonSpawningMonoBehaviour<OutputLogFile>
 			postForm.AddField("gameName", GeneralConfig.GameName);
 			postForm.AddField("deviceName", SystemInfo.deviceName);
 			postForm.AddBinaryData("contents", data, logFilePath, "text/plain");
-			WWW upload = new WWW(uploadURL, postForm);
-			yield return upload;
-			if (upload.error == null)
+			using (UnityWebRequest upload = UnityWebRequest.Post(uploadURL, postForm))
 			{
+				yield return upload.SendWebRequest();
+				if (upload.error == null)
+				{
+				}
+				string errorFile = PlayerPrefs.GetString("OUTPUTLOGFILE_ERROR_FILE");
+				if (logFilePath.Equals(errorFile))
+				{
+					PlayerPrefs.SetString("OUTPUTLOGFILE_ERROR_FILE", string.Empty);
+				}
+				uploadInProgress = string.Empty;
 			}
-			string errorFile = PlayerPrefs.GetString("OUTPUTLOGFILE_ERROR_FILE");
-			if (logFilePath.Equals(errorFile))
-			{
-				PlayerPrefs.SetString("OUTPUTLOGFILE_ERROR_FILE", string.Empty);
-			}
-			uploadInProgress = string.Empty;
 		}
 	}
 

@@ -195,11 +195,6 @@ public class Pit
 		}
 		if (AmbientEffect != null)
 		{
-			ParticleEmitter[] componentsInChildren = AmbientEffect.GetComponentsInChildren<ParticleEmitter>();
-			foreach (ParticleEmitter particleEmitter in componentsInChildren)
-			{
-				particleEmitter.emit = true;
-			}
 			ParticleSystem[] componentsInChildren2 = AmbientEffect.GetComponentsInChildren<ParticleSystem>();
 			foreach (ParticleSystem particleSystem in componentsInChildren2)
 			{

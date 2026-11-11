@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class StaticFixer : Editor
 {
-	[MenuItem("Static Fixes/Fix Static Objects")]
+	[MenuItem("SvZ2 Kaizen/Utilities/Fix Static Objects", false, 40)]
 	public static void Fix()
 	{
 		foreach (GameObject gameObject in Resources.FindObjectsOfTypeAll<GameObject>())

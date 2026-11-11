@@ -11,7 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class DataBundleCompiler : MonoBehaviour
 {
-    [MenuItem("Data Bundles/Compile English")]
+    [MenuItem("SvZ2 Kaizen/Data/Compile English", false, 10)]
     public static void CompileEnglish()
     {
         CompileBundle(Path.Combine("DataBundles", "English"));
