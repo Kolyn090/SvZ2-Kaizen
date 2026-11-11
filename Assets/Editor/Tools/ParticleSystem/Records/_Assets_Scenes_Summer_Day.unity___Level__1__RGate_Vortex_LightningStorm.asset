@@ -16,7 +16,7 @@ MonoBehaviour:
   sourceObjectPath: /Level (1)/RGate/Vortex/LightningStorm
   legacyEmitterType: EllipsoidParticleEmitter
   targetObjectPath: /Level (1)/RGate/Vortex/LightningStorm/[PSV2] LightningStorm
-  createdAt: 2026-11-10 06:02:02
+  createdAt: 2026-11-11 01:45:09
   unityVersion: 2017.4.40f1
   legacyFields:
   - field: m_ObjectHideFlags
@@ -34,7 +34,7 @@ MonoBehaviour:
   - field: m_PrefabInternal.m_PathID
     value: 0
   - field: m_GameObject.m_FileID
-    value: 217900
+    value: 195854
   - field: m_GameObject.m_PathID
     value: 0
   - field: Does Animate Color?
@@ -114,11 +114,11 @@ MonoBehaviour:
   - field: m_PrefabInternal.m_PathID
     value: 0
   - field: m_GameObject.m_FileID
-    value: 217900
+    value: 195854
   - field: m_GameObject.m_PathID
     value: 0
   - field: m_Enabled
-    value: true
+    value: false
   - field: m_CastShadows
     value: <Enum>
   - field: m_ReceiveShadows
@@ -160,7 +160,7 @@ MonoBehaviour:
   - field: m_Materials.Array.data[0]
     value: lightning_flipbook (UnityEngine.Material)
   - field: m_Materials.Array.data[0].m_FileID
-    value: 48234
+    value: 18158
   - field: m_Materials.Array.data[0].m_PathID
     value: 0
   - field: m_StaticBatchInfo.firstSubMesh

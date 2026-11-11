@@ -16,7 +16,7 @@ MonoBehaviour:
   sourceObjectPath: /Level (1)/RGate/Vortex/Cloud
   legacyEmitterType: EllipsoidParticleEmitter
   targetObjectPath: /Level (1)/RGate/Vortex/Cloud/[PSV2] Cloud
-  createdAt: 2026-11-10 06:00:08
+  createdAt: 2026-11-11 01:44:27
   unityVersion: 2017.4.40f1
   legacyFields:
   - field: m_ObjectHideFlags
@@ -34,7 +34,7 @@ MonoBehaviour:
   - field: m_PrefabInternal.m_PathID
     value: 0
   - field: m_GameObject.m_FileID
-    value: 217332
+    value: 195248
   - field: m_GameObject.m_PathID
     value: 0
   - field: Does Animate Color?
@@ -114,11 +114,11 @@ MonoBehaviour:
   - field: m_PrefabInternal.m_PathID
     value: 0
   - field: m_GameObject.m_FileID
-    value: 217332
+    value: 195248
   - field: m_GameObject.m_PathID
     value: 0
   - field: m_Enabled
-    value: true
+    value: false
   - field: m_CastShadows
     value: <Enum>
   - field: m_ReceiveShadows
@@ -160,7 +160,7 @@ MonoBehaviour:
   - field: m_Materials.Array.data[0]
     value: vortex_purple (UnityEngine.Material)
   - field: m_Materials.Array.data[0].m_FileID
-    value: 65478
+    value: 47452
   - field: m_Materials.Array.data[0].m_PathID
     value: 0
   - field: m_StaticBatchInfo.firstSubMesh
@@ -266,8 +266,10 @@ MonoBehaviour:
     is enabled; this system simulates local, so legacy applies no emitter-velocity
     inheritance - nothing converted (V1 mapped it unconditionally and wrongly).
   - 'rotation axes localRotationAxis=(0.2, 0.2, 0.2) worldRotationAxis=(0, 0, 0):
-    Shuriken RotationOverLifetime is Z-magnitude only; Z-approximation was used -
-    VERIFY orientation.'
+    orbital position rotation is NOT representable by any 2017.4 Shuriken module (orbital
+    velocity ships only in 2019.1+). Nothing was encoded by the module conversion
+    - VERIFY after Stage-1 testing by using ''Attach Orbit Script (selection)'' on
+    this holder (speed unit undocumented; calibrate with the Inspector multiplier).'
   warnings:
   - Legacy components were preserved (not modified, not disabled, not deleted). Delete
     the [PSV2] child to revert.
