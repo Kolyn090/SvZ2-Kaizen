@@ -71,18 +71,45 @@ public static class CheckLegacyParticlesAll
         foreach (string result in results)
             report.AppendLine(result);
 
-        string reportPath = System.IO.Path.Combine(
-            System.IO.Path.GetTempPath(),
-            "SvZ2_LegacyParticleAudit.txt");
+        // Audit output: <UnityProjectRoot>/Logs/LegacyParticles/, timestamped
+        // so previous reports are never overwritten. Project root is the
+        // parent of Application.dataPath (<project>/Assets).
+        string reportPath;
+        try
+        {
+            string projectRoot =
+                System.IO.Directory.GetParent(Application.dataPath).FullName;
+            string outputDir = System.IO.Path.Combine(
+                projectRoot,
+                System.IO.Path.Combine("Logs", "LegacyParticles"));
 
-        System.IO.File.WriteAllText(reportPath, report.ToString());
+            System.IO.Directory.CreateDirectory(outputDir);
+
+            reportPath = System.IO.Path.Combine(
+                outputDir,
+                "SvZ2_LegacyParticleAudit_"
+                    + System.DateTime.Now.ToString("yyyy-MM-dd_HHmmss")
+                    + ".txt");
+
+            System.IO.File.WriteAllText(reportPath, report.ToString());
+            Debug.Log("Legacy Particle Audit report saved to: "
+                + reportPath);
+        }
+        catch (System.Exception e)
+        {
+            reportPath = null;
+            Debug.LogError("Legacy Particle Audit: could not save report ("
+                + e.GetType().Name + "): " + e.Message);
+        }
 
         EditorUtility.DisplayDialog(
             "Legacy Particle Audit",
             "Prefabs scanned: " + prefabsScanned +
             "\nScenes scanned: " + scenesScanned +
             "\nLegacy components: " + legacyCount +
-            "\n\nReport saved to:\n" + reportPath,
+            (reportPath != null
+                ? "\n\nReport saved to:\n" + reportPath
+                : "\n\nReport could not be saved (see Console)."),
             "OK"
         );
     }
