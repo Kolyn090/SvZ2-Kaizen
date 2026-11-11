@@ -14,11 +14,11 @@ public class DivineWindHandler : AbilityHandlerComponent
 
 	private bool mStoppedEmitting;
 
-	private ParticleEmitter[] mEmitters;
+	private ParticleSystem[] mEmitters;
 
 	private void Start()
 	{
-		mEmitters = GetComponentsInChildren<ParticleEmitter>();
+		mEmitters = GetComponentsInChildren<ParticleSystem>();
 		mRemainingDuration = abilitySchema.duration;
 		mDamagePerHit = abilitySchema.damage / (mRemainingDuration / 0.25f);
 		mTimeUntilNextDamage = 0f;
@@ -30,10 +30,10 @@ public class DivineWindHandler : AbilityHandlerComponent
 		if (mStoppedEmitting)
 		{
 			bool flag = false;
-			ParticleEmitter[] array = mEmitters;
-			foreach (ParticleEmitter particleEmitter in array)
+			ParticleSystem[] array = mEmitters;
+			foreach (ParticleSystem particleEmitter in array)
 			{
-				particleEmitter.emit = false;
+				particleEmitter.Stop();
 				if (particleEmitter.particleCount > 0)
 				{
 					flag = true;

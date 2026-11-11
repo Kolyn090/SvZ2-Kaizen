@@ -230,15 +230,6 @@ public class AnimationEffects : MonoBehaviour
 
 	public void StopAllParticleEmitters()
 	{
-		ParticleEmitter[] componentsInChildren = GetComponentsInChildren<ParticleEmitter>();
-		ParticleEmitter[] array = componentsInChildren;
-		foreach (ParticleEmitter particleEmitter in array)
-		{
-			if (particleEmitter != null)
-			{
-				particleEmitter.emit = false;
-			}
-		}
 		ParticleSystem[] componentsInChildren2 = GetComponentsInChildren<ParticleSystem>();
 		ParticleSystem[] array2 = componentsInChildren2;
 		foreach (ParticleSystem particleSystem in array2)

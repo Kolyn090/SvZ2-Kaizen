@@ -10,9 +10,11 @@ public class GuiTextHandler : MonoBehaviour
 
 	private bool mVisible;
 
+#if !UNITY_2019_3_OR_NEWER
 	private bool mOffScreen;
 
 	private GUIText mGuiText;
+#endif
 
 	private string mOldString;
 
@@ -20,15 +22,19 @@ public class GuiTextHandler : MonoBehaviour
 
 	private void Start()
 	{
+#if !UNITY_2019_3_OR_NEWER
 		mGuiText = base.gameObject.GetComponent<GUIText>();
+#endif
 		if (TextObject == null)
 		{
 			Object.Destroy(base.gameObject);
 			return;
 		}
+#if !UNITY_2019_3_OR_NEWER
 		TextObject.onTextChanged = UpdateText;
 		string textToModify = string.Empty;
 		UpdateText(ref textToModify, TextObject.Text);
+#endif
 		mGluiCamera = ObjectUtils.FindFirstCamera(LayerMask.NameToLayer("GLUI"));
 		base.transform.parent = null;
 	}
@@ -48,6 +54,7 @@ public class GuiTextHandler : MonoBehaviour
 			Vector3 position = mGluiCamera.WorldToViewportPoint(TextObject.transform.position);
 			base.transform.position = position;
 			TextObject.Visible = false;
+#if !UNITY_2019_3_OR_NEWER
 			bool flag = position[1] < MinYPos || position[1] > MaxYPos;
 			if (flag != mOffScreen)
 			{
@@ -61,6 +68,7 @@ public class GuiTextHandler : MonoBehaviour
 					mGuiText.text = mOldString;
 				}
 			}
+#endif
 		}
 	}
 
@@ -89,6 +97,7 @@ public class GuiTextHandler : MonoBehaviour
 		if (visible != mVisible)
 		{
 			mVisible = visible;
+#if !UNITY_2019_3_OR_NEWER
 			if (!visible)
 			{
 				mGuiText.text = string.Empty;
@@ -97,6 +106,7 @@ public class GuiTextHandler : MonoBehaviour
 			{
 				mGuiText.text = mOldString;
 			}
+#endif
 			TextObject.Visible = !visible;
 		}
 	}
