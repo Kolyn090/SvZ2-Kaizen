@@ -72,6 +72,53 @@ using UnityEngine;
  *   sample lands. One-frame launch stall of ~|v0|/frameRate local units at
  *   spawn; recorded as an approximation and checkable in the A/B.
  *
+ * STAGE 7 - optional EMPIRICAL initial-velocity model (second, independent
+ * switch on this component; requires enableVelocityRotation ON because it
+ * reuses the same takeover/VOLT-disable/spawn-detection machinery):
+ *
+ *   Stage-5 direction analysis of the Cloud_bad recording
+ *   (Logs/Analysis_Cloud_bad_directions/REPORT_Cloud_bad_emission_directions.md)
+ *   measured the ORIGINAL initial emission directions as a broad,
+ *   bidirectional distribution (NOT two jets):
+ *     - dominant axis e1 = (0.839, 0.232, -0.492) emitter-local
+ *       (permutation p = 2e-4; matches no authored axis: 33 deg off X,
+ *       70 deg off localRotationAxis (0.2,0.2,0.2));
+ *     - axis energy E[p^2] = 0.612 (isotropic 0.333), mean |p| = 0.735;
+ *     - signed split 26/26 = 50/50, no net drift (resultant p = 0.93);
+ *     - median angular deviation 33 deg, P90 74 deg (broad cone);
+ *     - initial speeds 0.087..0.287 local units/s (mean 0.213);
+ *     - universal outward radial tendency: cos(v, spawnPos) in
+ *       [0.07, 1.0], mean 0.695, positive for ALL 52 measured particles.
+ *
+ *   MODEL (one sample per fresh spawn, when 'enableEmpiricalInitialVelocity'
+ *   is ON; replaces the captured-VOLT baseline sample for that spawn):
+ *     1. Cone sample around +e1: exact 3D von Mises-Fisher cosine
+ *        W = 1 + ln(1 + t*(e^(-2k) - 1)) / k, t ~ U[0,1],
+ *        k = 'empiricalConcentration'; k = 0 degenerates to a uniform sphere.
+ *        Direction = W*e1 + sqrt(1 - W^2) * (cos(phi)*u + sin(phi)*w),
+ *        phi ~ U[0,2pi), (u,w) orthonormal ring perpendicular to e1.
+ *     2. Sign: chosen to the SAME hemisphere as the spawn position's side
+ *        of e1 (measured 67% sign agreement in the recording; because spawn
+ *        positions are near-isotropic the aggregate split stays near 50/50).
+ *     3. Outward radial blend: direction = normalize( axialSample
+ *        + 'empiricalRadialBias' * spawnPosDirection ) - reproduces the
+ *        measured universal outward tendency, which a pure axial model
+ *        cannot (it would average cos(v,pos) ~ 0).
+ *     4. Speed = uniform('empiricalMinInitialSpeed','empiricalMaxInitialSpeed').
+ *
+ *   SYNTHETIC VALIDATION (Monte-Carlo, K = 40000, defaults k = 3.0,
+ *   radialBias = 0.7, spawn directions bootstrapped from the recording):
+ *     axis energy 0.603 (measured 0.612, -1.5%), mean |p| 0.746 (0.735, +1.4%),
+ *     mean cos(v, pos) 0.694 (0.695, exact), cos > 0 for 97.3% (100%),
+ *     split 53.4% (+3.4pt), angle median 36 deg (33), angle P90 64 deg (74).
+ *   REPORTED DISCREPANCIES (never hidden): the model's far tail is narrower
+ *   than measured (P90 64 vs 74 deg - the recording has a heavier
+ *   off-axis halo), the +side split leans 53.4% instead of 50% (the sign
+ *   coupling follows the spawn-position asymmetry), and uniform speed
+ *   sampling averages 0.187 vs the measured 0.213 (measured speeds skew
+ *   high: median 0.247, P75 0.272). Not compilable/fidelity-verified
+ *   without the in-engine A/B.
+ *
  * PRESERVATION / REVERSIBILITY (requirements 1, 2, 3, 9, 10):
  *
  *   'enableVelocityRotation' ships OFF: the component is inert and the system
@@ -127,6 +174,23 @@ public class LegacyParticleVelocityRotation : MonoBehaviour
 	[Header("Experiment switch (no recompile)")]
 	[Tooltip("Runs the measured legacy velocity rotation dv/dt = localRotationAxis x velocity (quaternion step per frame, Velocity over Lifetime disabled while ON to prevent double-apply). OFF = exact Stage 1+2 conversion behavior (VOLT module untouched, emission untouched).")]
 	public bool enableVelocityRotation = false;
+
+	[Header("Stage 7 - empirical initial velocity (Cloud_bad measurement, optional)")]
+	[Tooltip("Stage-7 experiment: freshly spawned particles receive an initial velocity sampled from the measured bidirectional emission model (dominant-axis cone + outward radial blend) instead of the captured VOLT baseline samples. Requires enableVelocityRotation = ON (reuses its takeover / VOLT-disable / spawn-detection machinery). OFF = Stage-6 behavior exactly.")]
+	public bool enableEmpiricalInitialVelocity = false;
+
+	[Tooltip("Measured dominant emission axis in emitter-local space (Stage-5 direction analysis of Cloud_bad). Zero length falls back to isotropic sampling.")]
+	public Vector3 empiricalDominantAxis = new Vector3(0.8391f, 0.2320f, -0.4920f);
+
+	[Tooltip("Directional concentration of the direction cone around +/- the dominant axis (3D von Mises-Fisher kappa). 0 = isotropic sphere, larger = narrower cone. Fitted to the Cloud_bad recording: 3.0.")]
+	public float empiricalConcentration = 3.0f;
+
+	[Tooltip("Outward radial bias: how strongly the spawn-position direction is blended into the initial direction (0 = pure axial cone, no radial tendency). Fitted to the Cloud_bad recording: 0.7.")]
+	public float empiricalRadialBias = 0.7f;
+
+	[Tooltip("Initial speed range in local units/s, sampled uniformly. Cloud_bad measured initial speeds span 0.087..0.287 with mean 0.213 (uniform sampling averages 0.187; the measured distribution skews high, median 0.247).")]
+	public float empiricalMinInitialSpeed = 0.087f;
+	public float empiricalMaxInitialSpeed = 0.287f;
 
 	[Header("Captured legacy emitter data (read-only copy of the preserved ParticleAnimator)")]
 	[Tooltip("Legacy ParticleAnimator localRotationAxis, UNNORMALIZED: |axis| = rotation rate (rad/s). Stage 5 measured rate <= |a| with omega = |a| * sin(angle(v0, a)).")]
@@ -230,7 +294,7 @@ public class LegacyParticleVelocityRotation : MonoBehaviour
 					+ GetHolderName() + ": a LegacyParticleTangentEmitter with enableTangentEmission=true is ALSO active. Both experiments rewrite/disable the same Velocity over Lifetime module - switch one off before comparing.");
 			if (GetComponent<LegacyParticleVelocityMultiplier>() != null)
 				UnityEngine.Debug.LogWarning("LegacyParticleVelocityRotation on " 
-					+ GetHolderName() + ": a LegacyParticleVelocityMultiplier is attached. While the rotation experiment is ON, spawn velocities are sampled from the rotation component's own captured baseline, so multiplier edits do not change spawn velocities mid-experiment; multiplier VOLT rebuilds are inert here (module re-asserted disabled every frame).");
+					+ GetHolderName() + ": a LegacyParticleVelocityMultiplier is attached. While the rotation experiment is ON, spawn velocities are sampled from this component's own captured baseline (or the Stage-7 empirical model when enableEmpiricalInitialVelocity is ON), so multiplier edits do not change spawn velocities mid-experiment; multiplier VOLT rebuilds are inert here (module re-asserted disabled every frame).");
 		}
 
 		ParticleSystemsRotationStep(dt);
@@ -280,13 +344,19 @@ public class LegacyParticleVelocityRotation : MonoBehaviour
 			uint seed = m_Buffer[i].randomSeed;
 			if (!seenSeeds.Contains(seed))
 			{
-				// Fresh spawn: assign ONE uniform sample of the captured VOLT
-				// baselines (initial-velocity distribution preserved; the VOLT
-				// module itself is disabled so it cannot add on top).
-				Vector3 v = new Vector3(
-					SampleAxisValue(baselineX),
-					SampleAxisValue(baselineY),
-					SampleAxisValue(baselineZ));
+				// Fresh spawn. Stage 7: with the empirical model ON the initial
+				// velocity comes from the measured distribution; with it OFF
+				// the Stage-6 behavior (one uniform sample of the captured
+				// VOLT baselines) is preserved exactly. Exactly one assignment
+				// per seed: the seen-set guarantees no reinitialization.
+				Vector3 v;
+				if (enableEmpiricalInitialVelocity)
+					v = SampleEmpiricalInitialVelocity(m_Buffer[i].position);
+				else
+					v = new Vector3(
+						SampleAxisValue(baselineX),
+						SampleAxisValue(baselineY),
+						SampleAxisValue(baselineZ));
 
 				ParticleSystem.Particle p = m_Buffer[i];
 				p.velocity = v;
@@ -338,6 +408,68 @@ public class LegacyParticleVelocityRotation : MonoBehaviour
 			default:
 				return 0f; // refused at attach; never guesses
 		}
+	}
+
+	/// <summary>
+	/// Stage-7 empirical initial velocity for one fresh spawn. spawnPosition is
+	/// the particle's position in emitter-local simulation space at first sight
+	/// (startSpeed is 0 and Velocity over Lifetime is disabled while the
+	/// experiment runs, so it is the unmoved spawn point).
+	/// </summary>
+	Vector3 SampleEmpiricalInitialVelocity(Vector3 spawnPosition)
+	{
+		Vector3 direction = SampleEmpiricalDirection(spawnPosition);
+		float speed = Random.Range(empiricalMinInitialSpeed, empiricalMaxInitialSpeed);
+		return direction * speed;
+	}
+
+	/// <summary>
+	/// One sample of the measured emission-direction model:
+	/// von Mises-Fisher cone around +/- the dominant axis (sign aligned to the
+	/// spawn-position hemisphere), blended toward the outward spawn direction
+	/// by empiricalRadialBias. All randomness from UnityEngine.Random (no fixed
+	/// seed); nothing here assumes the X axis or any authored axis.
+	/// </summary>
+	Vector3 SampleEmpiricalDirection(Vector3 spawnPosition)
+	{
+		Vector3 axis = empiricalDominantAxis;
+		float axisLength = axis.magnitude;
+		if (axisLength <= kZeroLength)
+			return Random.onUnitSphere; // degenerate axis: isotropic fallback, never guesses
+
+		axis /= axisLength;
+
+		// Orthonormal ring frame perpendicular to the axis.
+		Vector3 helper = Mathf.Abs(axis.y) < 0.99f ? new Vector3(0f, 1f, 0f) : new Vector3(1f, 0f, 0f);
+		Vector3 ringU = Vector3.Cross(axis, helper).normalized;
+		Vector3 ringV = Vector3.Cross(axis, ringU);
+
+		// Exact 3D von Mises-Fisher cosine sample around +axis.
+		float kappa = Mathf.Max(0f, empiricalConcentration);
+		float cosine;
+		if (kappa < 1e-3f)
+			cosine = 2f * Random.value - 1f; // isotropic sphere
+		else
+			cosine = 1f + Mathf.Log(1f + Random.value * (Mathf.Exp(-2f * kappa) - 1f)) / kappa;
+
+		float azimuth = Random.value * 2f * Mathf.PI;
+		float sine = Mathf.Sqrt(Mathf.Max(0f, 1f - cosine * cosine));
+		float ringCos = Mathf.Cos(azimuth);
+		float ringSin = Mathf.Sin(azimuth);
+
+		// Sign: same hemisphere as the spawn position relative to the axis
+		// (measured 67% sign agreement; keeps the aggregate split near 50/50).
+		float side = Vector3.Dot(spawnPosition, axis);
+		float sign = side >= 0f ? 1f : -1f;
+
+		Vector3 axial = sign * (cosine * axis + sine * (ringCos * ringU + ringSin * ringV));
+
+		// Outward radial blend toward the spawn direction (zero-safe:
+		// Vector3.normalized of the zero vector is the zero vector).
+		Vector3 blended = axial + empiricalRadialBias * spawnPosition.normalized;
+		if (blended.sqrMagnitude <= kZeroLength * kZeroLength)
+			return axial.normalized; // degenerate blend: pure axial sample
+		return blended.normalized;
 	}
 
 	/// <summary>
