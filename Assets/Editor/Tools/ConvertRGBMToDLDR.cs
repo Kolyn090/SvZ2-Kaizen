@@ -7,7 +7,7 @@ public static class ConvertRGBMToDLDR
 {
     private const float Brightness = 0.8f;
 
-    [MenuItem("Tools/Convert RGBM Lightmap to iOS dLDR")]
+    [MenuItem("SvZ2 Kaizen/Lighting/Convert RGBM Lightmap to iOS dLDR", false, 21)]
     public static void Convert()
     {
         Texture2D original = Selection.activeObject as Texture2D;

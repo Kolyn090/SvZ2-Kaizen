@@ -4,7 +4,7 @@ using UnityEditor;
 
 public static class ReplaceLightmapInPlace
 {
-    [MenuItem("Tools/Replace DXT5 Asset In Place")]
+    [MenuItem("SvZ2 Kaizen/Lighting/Replace DXT5 Asset In Place", false, 28)]
     public static void Replace()
     {
         Texture2D original = null;

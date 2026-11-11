@@ -6,7 +6,7 @@ using System.Text;
 
 public static class CheckLightmapReferences
 {
-    [MenuItem("Tools/Check Scene Lightmap References")]
+    [MenuItem("SvZ2 Kaizen/Lighting/Check Scene Lightmap References", false, 20)]
     public static void Check()
     {
         Scene scene = SceneManager.GetActiveScene();

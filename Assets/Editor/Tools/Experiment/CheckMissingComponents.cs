@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class CheckMissingComponents
 {
-    [MenuItem("Tools/1 Check Selected Missing Components", false, 1)]
+    [MenuItem("SvZ2 Kaizen/Validation/Check Selected Missing Components", false, 30)]
     public static void Check()
     {
         GameObject go = Selection.activeGameObject;
