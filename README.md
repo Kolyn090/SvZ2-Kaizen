@@ -47,5 +47,13 @@ There are also many changes that are planned to be added, but have not yet been 
   - There is currently an issue with porting stages, but hopefully this can be fixed in future.
 - Pachinko may be added, although less as a means of progression and rather for some other fun purpose if I can figure one out.
 
+Contributions by Kolyn090:
+- Upgraded the game from Unity 2017.4 to Unity 6.3 LTS.
+- Modernized older Unity APIs, shaders, and particle effects.
+- Fixed several rendering issues involving terrain, materials, and lighting.
+- Updated scene assets while preserving the existing iOS lightmaps.
+- Cleaned up obsolete GUI components and unused dependencies.
+- Improved logging and removed connections to an obsolete Glu server.
+
 ## Feedback
 You can help this project reach its full potential by sending feedback via the [SvZ Discord server](https://discord.gg/9nNeTYrpaj)! It is here that you will also be able to keep up with news regarding the mod, as well as see the progress on it behind the scenes, completely for free (and that's a great price)!
