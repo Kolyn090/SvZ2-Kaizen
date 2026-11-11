@@ -8,6 +8,13 @@ public class OutputLogFile : SingletonSpawningMonoBehaviour<OutputLogFile>
 {
 	private const string kErrorFileKey = "OUTPUTLOGFILE_ERROR_FILE";
 
+	// Disabled by default: the legacy Glu upload endpoint is obsolete and rejected
+	// by Unity's insecure-HTTP policy. Existing scene/prefab serialization does not
+	// contain this field (the component is not serialized in any asset), so it can
+	// only be enabled deliberately in the Inspector or in code.
+	[SerializeField]
+	private bool enableRemoteLogUploads = false;
+
 	public string uploadURL = "http://kw-macmini650.glu.com:8888/log_file_grab/grab.php";
 
 	private StreamWriter writer;
@@ -129,6 +136,12 @@ public class OutputLogFile : SingletonSpawningMonoBehaviour<OutputLogFile>
 
 	private IEnumerator UploadLog(string logFilePath, byte[] data)
 	{
+		if (!enableRemoteLogUploads)
+		{
+			// Remote uploads disabled: no request, no uploadInProgress state, and the
+			// pending-upload PlayerPrefs record is intentionally left untouched.
+			yield break;
+		}
 		if (!logFilePath.Equals(uploadInProgress))
 		{
 			uploadInProgress = logFilePath;
