@@ -23,7 +23,7 @@ public class EffectKiller : MonoBehaviour
 	private void Start()
 	{
 		mParticleSystems = GetComponentsInChildren<ParticleSystem>();
-		mHadChildren = base.transform.GetChildCount() > 0;
+		mHadChildren = base.transform.childCount > 0;
 		mHadEffects = mParticleSystems.Length > 0;
 	}
 
