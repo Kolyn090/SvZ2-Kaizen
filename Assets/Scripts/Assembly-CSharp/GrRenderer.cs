@@ -102,11 +102,19 @@ public class GrRenderer : Singleton<GrRenderer>
 		GL.PopMatrix();
 	}
 
+	
 	private void createMaterial2d()
 	{
-		mMaterial2d = new Material("Shader \"Lines/Colored Blended\" {SubShader { Pass {     Tags { \"Queue\" = \"Geometry+1\" \"RenderType\"=\"Transparent\"}    Blend SrcAlpha OneMinusSrcAlpha     ZWrite Off Cull Off Fog { Mode Off }     BindChannels {    Bind \"vertex\", vertex Bind \"color\", color }} } }");
-		mMaterial2d.color = new Color(1f, 1f, 1f, 1f);
+		Shader shader = Shader.Find("SvZ2/GrRendererColoredBlended");
+
+		if (shader == null)
+		{
+			Debug.LogError("GrRenderer: 2D shader not found.");
+			return;
+		}
+
+		mMaterial2d = new Material(shader);
+		mMaterial2d.color = Color.white;
 		mMaterial2d.hideFlags = HideFlags.HideAndDontSave;
-		mMaterial2d.shader.hideFlags = HideFlags.HideAndDontSave;
 	}
 }
