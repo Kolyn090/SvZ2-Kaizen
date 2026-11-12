@@ -1,7 +1,6 @@
 using UnityEngine;
 
 //[ExecuteInEditMode]
-[RequireComponent(typeof(Renderer))]
 public class SetRenderQueueGroup : MonoBehaviour
 {
 	public int minQueueValue = 2001;
