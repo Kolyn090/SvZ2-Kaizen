@@ -309,7 +309,7 @@ public class DataBundleRuntimeLegacyUdaman : IUdamanRuntimeDataProvider
 						else if (DataBundleUtils.IsAssetRelativeToResourcesFolder(text, out relativePath))
 						{
 							UnityEngine.Object value = null;
-							SharedResourceLoader.SharedResource loadedAsset = SharedResourceLoader.GetLoadedAsset(text);
+							SharedResourceLoader.SharedResource loadedAsset = SharedResourceLoader.LoadAsset(text);
 							if (loadedAsset != null)
 							{
 								value = loadedAsset.Resource;
