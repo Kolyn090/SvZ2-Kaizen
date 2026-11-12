@@ -275,7 +275,7 @@ public class HUDAbilities : UIHandlerComponent
 	{
 		int kAbilityCmdLen = kAbilityCmd.Length;
 
-		if (eventID.Length > kAbilityCmdLen && eventID.Substring(kAbilityCmdLen) == kAbilityCmd)
+		if (eventID.Length > kAbilityCmdLen && eventID.Substring(0, kAbilityCmdLen) == kAbilityCmd)
 		{
 			TryUsingAbility(int.Parse(eventID.Substring(kAbilityCmdLen)));
 			return true;
